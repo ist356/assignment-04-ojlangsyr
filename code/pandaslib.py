@@ -51,10 +51,13 @@ def load_file(file_path: str, ext: str) -> pd.DataFrame:
     elif ext == 'xlsx':
         return pd.read_excel(file_path)
     elif ext == 'json':
-        return pd.read_json(file_path)
+        try:
+            df = pd.read_json(file_path, orient = 'records')
+        except ValueError:
+            df = pd.read_json(file_path, orient = 'columns')    
     else:
         raise ValueError(f"Unsupported file extension: {ext}")
-
+    return df
 if __name__ == '__main__':
     df = pd.DataFrame({ 
         "name": ["Alice", "Bob", "Chris", "Dee", "Eddie", "Fiona"],

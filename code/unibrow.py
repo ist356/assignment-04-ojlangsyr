@@ -19,7 +19,7 @@ if file_uploaded:
 
     if df is not None:
         all_cols = pl.get_column_names(df)
-        selected_cols = st.multiselect("SELECT COLUMNS", all_cols)
+        selected_cols = st.multiselect("SELECT COLUMNS", all_cols, default=all_cols)
 
         if selected_cols:
             st.write("FILTERED:")
@@ -41,7 +41,7 @@ if file_uploaded:
             st.write("SUMMARY STATS")
             st.write(df[selected_cols].describe())
         else:
-            st.write("NO SELECTED COLUMNS")
+            st.write("SUMMARY STATS NOT CHECKED")
     else:
         st.write("ERROR LOADING FILE")
 else:
